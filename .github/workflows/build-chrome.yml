@@ -1,0 +1,49 @@
+name: 打包 Chrome 插件
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Chrome 插件
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: 获取源码
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+      - name: 准备 Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: 安装依赖
+        run: npm ci
+      - name: 打包 Chrome 插件
+        run: npm run build:prod:chrome
+      - name: 检查插件文件
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync, existsSync} from 'node:fs';
+          const base = 'dist/chrome/';
+          const manifest = JSON.parse(readFileSync(base + 'manifest.json', 'utf8'));
+          if (manifest.manifest_version !== 3) throw new Error('Expected Manifest V3');
+          const paths = [manifest.background.service_worker, manifest.options_ui.page, 'LICENSE'];
+          for (const entry of manifest.content_scripts || []) paths.push(...(entry.js || []));
+          paths.push(...Object.values(manifest.icons || {}));
+          for (const path of paths) {
+            if (!path || !existsSync(base + path)) throw new Error('Missing extension file: ' + path);
+          }
+          console.log('Chrome extension files verified; version ' + manifest.version);
+          NODE
+      - name: 提供下载包
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: search-by-image-chrome
+          path: dist/chrome/
+          if-no-files-found: error
+          retention-days: 14
