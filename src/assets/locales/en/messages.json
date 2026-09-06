@@ -1399,5 +1399,12 @@
   "error_internalError": {
     "message": "Something went wrong. Open the browser console for more details.",
     "description": "Error message."
+  },
+
+  "engineName_bigbigwork": {
+    "message": "大作 (BigBigWork)"
+  },
+  "error_bigbigworkUpload": {
+    "message": "大作未返回搜图结果。请检查页面上的登录或上传提示，然后重试。"
   }
 }

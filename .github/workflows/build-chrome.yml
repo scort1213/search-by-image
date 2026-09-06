@@ -23,6 +23,8 @@ jobs:
           cache: npm
       - name: 安装依赖
         run: npm ci
+      - name: 检查大作适配逻辑
+        run: node --test tests/bigbigwork.test.js
       - name: 打包 Chrome 插件
         run: npm run build:prod:chrome
       - name: 检查插件文件
@@ -32,7 +34,7 @@ jobs:
           const base = 'dist/chrome/';
           const manifest = JSON.parse(readFileSync(base + 'manifest.json', 'utf8'));
           if (manifest.manifest_version !== 3) throw new Error('Expected Manifest V3');
-          const paths = [manifest.background.service_worker, manifest.options_ui.page, 'LICENSE'];
+          const paths = [manifest.background.service_worker, manifest.options_ui.page, 'LICENSE', 'src/engines/bigbigwork/script.js'];
           for (const entry of manifest.content_scripts || []) paths.push(...(entry.js || []));
           paths.push(...Object.values(manifest.icons || {}));
           for (const path of paths) {
