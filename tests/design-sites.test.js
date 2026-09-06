@@ -49,7 +49,9 @@ function harness({
   engine = 'huaban',
   missing = false,
   success = true,
-  type = 'image/png'
+  type = 'image/png',
+  conversionFails = false,
+  receiptFails = false
 } = {}) {
   const source = readFileSync(
     new URL('../src/utils/design-sites.js', import.meta.url),
@@ -92,13 +94,14 @@ function harness({
     },
     convertProcessedImage: async () => {
       events.push('convert');
-      return {imageType: 'image/png'};
+      return conversionFails ? null : {imageType: 'image/png'};
     },
     setFileInputData: async () => {
       events.push('file');
     },
     sendReceipt: async () => {
       events.push('receipt');
+      if (receiptFails) throw new Error('receipt unavailable');
     },
     findNode: async selector => {
       if (missing) throw new Error('missing control');
@@ -152,4 +155,22 @@ test('upload without a result eventually reports failure instead of succeeding',
     name: 'EngineError',
     message: 'upload failed'
   });
+});
+
+for (const type of ['image/jpeg', 'image/png']) {
+  test(`${type} is handed off without unnecessary format conversion`, async () => {
+    const h = harness({type});
+    await h.run();
+    assert.ok(!h.events.includes('convert'));
+  });
+}
+test('failed conversion reports an error without submitting the original incompatible file', async () => {
+  const h = harness({type: 'image/avif', conversionFails: true});
+  await assert.rejects(h.run(), {name: 'EngineError'});
+  assert.deepEqual(h.events, ['convert']);
+});
+test('failed receipt prevents dispatching an upload that would lose task bookkeeping', async () => {
+  const h = harness({receiptFails: true});
+  await assert.rejects(h.run(), {name: 'EngineError'});
+  assert.ok(!h.events.includes('change'));
 });
