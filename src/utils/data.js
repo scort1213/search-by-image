@@ -30,6 +30,16 @@ const optionKeys = [
 const searchUrl = browser.runtime.getURL('/src/search/index.html') + '?id={id}';
 
 const engines = {
+  huaban: {image: {target: 'https://huaban.com/discovery', isExec: true}},
+  cosmos: {image: {target: 'https://www.cosmos.so/', isExec: true}},
+  savee: {image: {target: 'https://savee.com/search/', isExec: true}},
+  behance: {
+    image: {target: 'https://www.behance.net/search/images', isExec: true}
+  },
+  zcool: {
+    image: {target: 'https://www.zcool.com.cn/search/image', isExec: true}
+  },
+
   bigbigwork: {
     image: {target: 'https://www.bigbigwork.com/home', isExec: true}
   },
@@ -658,6 +668,12 @@ const gifEngineSupport = [
 ];
 
 const maxImageUploadSize = {
+  huaban: {ui: 10 * 1024 * 1024},
+  cosmos: {ui: 10 * 1024 * 1024},
+  savee: {ui: 10 * 1024 * 1024},
+  behance: {ui: 10 * 1024 * 1024},
+  zcool: {ui: 10 * 1024 * 1024},
+
   bigbigwork: {ui: 3 * 1024 * 1024},
   bing: {api: 600 * 1024, ui: 20 * 1024 * 1024},
   yandex: {api: 5 * 1024 * 1024, ui: Infinity},

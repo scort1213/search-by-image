@@ -1406,5 +1406,23 @@
   },
   "error_bigbigworkUpload": {
     "message": "大作未返回搜图结果。请检查页面上的登录或上传提示，然后重试。"
+  },
+  "engineName_huaban": {
+    "message": "花瓣"
+  },
+  "engineName_cosmos": {
+    "message": "Cosmos"
+  },
+  "engineName_savee": {
+    "message": "Savee"
+  },
+  "engineName_behance": {
+    "message": "Behance"
+  },
+  "engineName_zcool": {
+    "message": "站酷"
+  },
+  "error_designSiteUpload": {
+    "message": "图片搜索未完成。请检查网站上的登录、会员、文件格式或网络提示，然后重试。"
   }
 }

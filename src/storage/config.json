@@ -62,7 +62,8 @@
       "20250511143502_remove_karma_decay",
       "20251003185932_add_vcg",
       "20251203085001_add_yandexhost",
-      "20260907010000_add_bigbigwork"
+      "20260907010000_add_bigbigwork",
+      "20260907020000_add_design_sites"
     ],
     "session": [
       "20240514122825_initial_version"
