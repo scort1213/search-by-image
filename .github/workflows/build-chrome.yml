@@ -39,7 +39,9 @@ jobs:
           const locale = JSON.parse(readFileSync(base + '_locales/en/messages.json', 'utf8'));
           for (const name of names) {
             paths.push('src/engines/' + name + '/script.js', 'src/assets/icons/engines/' + name + '.svg');
-            if (!locale['engineName_' + name]) throw new Error('Missing engine name: ' + name);
+            for (const prefix of ['engineName_', 'optionTitle_', 'menuItemTitle_']) {
+              if (!locale[prefix + name]?.message?.trim()) throw new Error('Missing visible name: ' + prefix + name);
+            }
           }
           for (const entry of manifest.content_scripts || []) paths.push(...(entry.js || []));
           paths.push(...Object.values(manifest.icons || {}));

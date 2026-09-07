@@ -1424,5 +1424,41 @@
   },
   "error_designSiteUpload": {
     "message": "图片搜索未完成。请检查网站上的登录、会员、文件格式或网络提示，然后重试。"
+  },
+  "optionTitle_bigbigwork": {
+    "message": "大作 (BigBigWork)"
+  },
+  "menuItemTitle_bigbigwork": {
+    "message": "大作 (BigBigWork)"
+  },
+  "optionTitle_huaban": {
+    "message": "花瓣"
+  },
+  "menuItemTitle_huaban": {
+    "message": "花瓣"
+  },
+  "optionTitle_cosmos": {
+    "message": "Cosmos"
+  },
+  "menuItemTitle_cosmos": {
+    "message": "Cosmos"
+  },
+  "optionTitle_savee": {
+    "message": "Savee"
+  },
+  "menuItemTitle_savee": {
+    "message": "Savee"
+  },
+  "optionTitle_behance": {
+    "message": "Behance"
+  },
+  "menuItemTitle_behance": {
+    "message": "Behance"
+  },
+  "optionTitle_zcool": {
+    "message": "站酷"
+  },
+  "menuItemTitle_zcool": {
+    "message": "站酷"
   }
 }
