@@ -35,7 +35,7 @@ jobs:
           const manifest = JSON.parse(readFileSync(base + 'manifest.json', 'utf8'));
           if (manifest.manifest_version !== 3) throw new Error('Expected Manifest V3');
           const paths = [manifest.background.service_worker, manifest.options_ui.page, 'LICENSE', 'src/engines/bigbigwork/script.js'];
-          const names = ['bigbigwork', 'huaban', 'cosmos', 'savee', 'behance', 'zcool'];
+          const names = ['bigbigwork', 'huaban', 'cosmos', 'savee', 'behance', 'zcool', 'patternbank', 'sameenergy', 'spoonflower'];
           const locale = JSON.parse(readFileSync(base + '_locales/en/messages.json', 'utf8'));
           for (const name of names) {
             paths.push('src/engines/' + name + '/script.js', 'src/assets/icons/engines/' + name + '.svg');

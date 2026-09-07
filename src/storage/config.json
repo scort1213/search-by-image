@@ -63,7 +63,8 @@
       "20251003185932_add_vcg",
       "20251203085001_add_yandexhost",
       "20260907010000_add_bigbigwork",
-      "20260907020000_add_design_sites"
+      "20260907020000_add_design_sites",
+      "20260907030000_add_pattern_sites"
     ],
     "session": [
       "20240514122825_initial_version"

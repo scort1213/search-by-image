@@ -1460,5 +1460,32 @@
   },
   "menuItemTitle_zcool": {
     "message": "站酷"
+  },
+  "engineName_patternbank": {
+    "message": "Patternbank"
+  },
+  "menuItemTitle_patternbank": {
+    "message": "Patternbank"
+  },
+  "optionTitle_patternbank": {
+    "message": "Patternbank"
+  },
+  "engineName_sameenergy": {
+    "message": "Same Energy"
+  },
+  "menuItemTitle_sameenergy": {
+    "message": "Same Energy"
+  },
+  "optionTitle_sameenergy": {
+    "message": "Same Energy"
+  },
+  "engineName_spoonflower": {
+    "message": "Spoonflower · 面料图案"
+  },
+  "menuItemTitle_spoonflower": {
+    "message": "Spoonflower · 面料图案"
+  },
+  "optionTitle_spoonflower": {
+    "message": "Spoonflower · 面料图案"
   }
 }

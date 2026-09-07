@@ -30,6 +30,14 @@ const optionKeys = [
 const searchUrl = browser.runtime.getURL('/src/search/index.html') + '?id={id}';
 
 const engines = {
+  patternbank: {image: {target: 'https://patternbank.com/', isExec: true}},
+  sameenergy: {image: {target: 'https://same.energy/', isExec: true}},
+  spoonflower: {
+    image: {
+      target: 'https://www.spoonflower.com/en/shop-by-image',
+      isExec: true
+    }
+  },
   huaban: {image: {target: 'https://huaban.com/discovery', isExec: true}},
   cosmos: {image: {target: 'https://www.cosmos.so/', isExec: true}},
   savee: {image: {target: 'https://savee.com/search/', isExec: true}},
@@ -668,6 +676,9 @@ const gifEngineSupport = [
 ];
 
 const maxImageUploadSize = {
+  patternbank: {ui: 5 * 1024 * 1024},
+  sameenergy: {ui: 5 * 1024 * 1024},
+  spoonflower: {ui: 10 * 1024 * 1024},
   huaban: {ui: 10 * 1024 * 1024},
   cosmos: {ui: 10 * 1024 * 1024},
   savee: {ui: 10 * 1024 * 1024},

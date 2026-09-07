@@ -51,7 +51,8 @@ function harness({
   success = true,
   type = 'image/png',
   conversionFails = false,
-  receiptFails = false
+  receiptFails = false,
+  existingInput = false
 } = {}) {
   const source = readFileSync(
     new URL('../src/utils/design-sites.js', import.meta.url),
@@ -63,7 +64,7 @@ function harness({
       'globalThis.searchDesignSite = searchDesignSite; globalThis.designSites = designSites;'
     );
   let now = 0,
-    opened = false,
+    opened = existingInput,
     submitted = false;
   const events = [];
   const control = {
@@ -174,3 +175,11 @@ test('failed receipt prevents dispatching an upload that would lose task bookkee
   await assert.rejects(h.run(), {name: 'EngineError'});
   assert.ok(!h.events.includes('change'));
 });
+
+for (const engine of ['patternbank', 'sameenergy']) {
+  test(`${engine} uses its existing search input and hands off the file once`, async () => {
+    const h = harness({engine, existingInput: true});
+    await h.run();
+    assert.deepEqual(h.events, ['file', 'receipt', 'change']);
+  });
+}

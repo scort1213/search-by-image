@@ -12,7 +12,10 @@ const siteIds = [
   'cosmos',
   'savee',
   'behance',
-  'zcool'
+  'zcool',
+  'patternbank',
+  'sameenergy',
+  'spoonflower'
 ];
 const localSites = siteIds.slice(2);
 const read = path =>
@@ -113,7 +116,7 @@ test('local image and screenshot modes create exactly one upload task for every 
   }
 });
 
-test('six added sites require file upload for URL images and conversion for WebP, GIF and AVIF', async () => {
+test('nine added sites require file upload for URL images and conversion for WebP, GIF and AVIF', async () => {
   const {context: c} = sessionHarness();
   for (const type of [
     'image/png',
@@ -144,5 +147,8 @@ test('every site has a usable upload limit and original Lens/Pinterest limits re
     assert.ok(c.getMaxImageUploadSize(engine) > 0, engine);
   assert.equal(c.getMaxImageUploadSize('bigbigwork'), 3 * 1024 * 1024);
   for (const engine of localSites.slice(1))
-    assert.equal(c.getMaxImageUploadSize(engine), 10 * 1024 * 1024);
+    assert.equal(
+      c.getMaxImageUploadSize(engine),
+      (['patternbank', 'sameenergy'].includes(engine) ? 5 : 10) * 1024 * 1024
+    );
 });

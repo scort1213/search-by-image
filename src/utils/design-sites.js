@@ -4,6 +4,28 @@ import {EngineError, sendReceipt, setFileInputData} from 'utils/engines';
 
 // Use only the search upload controls, never the sites' publish/save controls.
 const designSites = {
+  patternbank: {
+    trigger: '#visual-search-file-input',
+    input: '#visual-search-file-input',
+    result: () =>
+      location.pathname === '/visual-search/results' &&
+      new URL(location.href).searchParams.has('vs')
+  },
+  sameenergy: {
+    trigger: 'form input[type="file"][class*="main_file_chooser"]',
+    input: 'form input[type="file"][class*="main_file_chooser"]',
+    result: () =>
+      location.pathname === '/search' &&
+      new URL(location.href).searchParams.has('i')
+  },
+  spoonflower: {
+    trigger: '#shop-by-image-landing-cta, a[href="/en/shop-by-image/upload"]',
+    input: '[role="dialog"] input[type="file"][class*="ImageDrop"]',
+    afterUpload: finishSpoonflower,
+    result: () =>
+      /^\/en\/shop-by-image\/[a-f0-9]+$/.test(location.pathname) &&
+      new URL(location.href).searchParams.get('on') === 'fabric'
+  },
   huaban: {
     trigger: 'use[*|href="#camera"]',
     input:
@@ -43,6 +65,20 @@ const designSites = {
   }
 };
 
+// Keep selectors within the image-search dialog; never click upload-design controls.
+async function finishSpoonflower() {
+  const primary =
+    '[role="dialog"] button[class*="ImageSearchDialog"][class*="PrimaryButton"]';
+  const fabric =
+    '[role="dialog"] [class*="ProductTypePicker"][class*="Card"]:has(img[src*="/fabric."])';
+  await findNode('[role="dialog"] [class*="ReactCrop"]');
+  (await findNode(primary)).click();
+  const card = await findNode(fabric);
+  card.click();
+  await findNode(`${fabric}[class*="Selected"]`);
+  (await findNode(primary)).click();
+}
+
 async function searchDesignSite(engine, {image, storageIds}) {
   const site = designSites[engine];
   const failure = () => new EngineError(getText('error_designSiteUpload'));
@@ -77,6 +113,7 @@ async function searchDesignSite(engine, {image, storageIds}) {
     // A successful upload may navigate away and destroy this script immediately.
     await sendReceipt(storageIds);
     input.dispatchEvent(new Event('change', {bubbles: true}));
+    if (site.afterUpload) await site.afterUpload();
     const deadline = Date.now() + 90000;
     while (Date.now() < deadline) {
       if (site.result()) return;
@@ -89,4 +126,4 @@ async function searchDesignSite(engine, {image, storageIds}) {
   }
 }
 
-export {designSites, searchDesignSite};
+export {designSites, searchDesignSite, finishSpoonflower};
