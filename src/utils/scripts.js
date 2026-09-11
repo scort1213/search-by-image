@@ -276,7 +276,43 @@ function waitForCanvasAccessScript(eventName) {
   checkAccess();
 }
 
+// Capture only this search's result window; leave unrelated links alone.
+function bigbigworkCaptureResultScript(eventName) {
+  const originalOpen = window.open;
+  const cleanupEvent = `${eventName}:cleanup`;
+  function cleanup() {
+    if (window.open === captureOpen) window.open = originalOpen;
+    window.clearTimeout(timer);
+    document.removeEventListener(cleanupEvent, cleanup);
+  }
+  function captureOpen(url, target) {
+    let result;
+    try {
+      result = new URL(url, window.location.href);
+    } catch (_) {}
+    if (
+      result &&
+      result.origin === 'https://www.bigbigwork.com' &&
+      result.pathname === '/SemblancePic/dzcollect.html' &&
+      result.searchParams.has('ossUrl')
+    ) {
+      // BigBigWork passes the preview image as the new window's name.
+      // Preserve it when reusing the extension-created search tab.
+      window.name =
+        typeof target === 'string' && /^data:image\//.test(target) ? target : '';
+      cleanup();
+      document.dispatchEvent(new CustomEvent(eventName, {detail: result.href}));
+      return null;
+    }
+    return originalOpen.apply(this, arguments);
+  }
+  const timer = window.setTimeout(cleanup, 90000);
+  document.addEventListener(cleanupEvent, cleanup, {once: true});
+  window.open = captureOpen;
+}
+
 const scriptFunctions = {
+  bigbigworkCaptureResult: bigbigworkCaptureResultScript,
   makeDocumentVisible: makeDocumentVisibleScript,
   setFileInputData: setFileInputDataScript,
   hideAlert: hideAlertScript,

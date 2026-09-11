@@ -61,7 +61,13 @@
       "20250413115022_add_unsplash",
       "20250511143502_remove_karma_decay",
       "20251003185932_add_vcg",
-      "20251203085001_add_yandexhost"
+      "20251203085001_add_yandexhost",
+      "20260907010000_add_bigbigwork",
+      "20260907020000_add_design_sites",
+      "20260907030000_add_pattern_sites",
+      "20260907040000_remove_behance",
+      "20260907050000_keep_selected_engines",
+      "20260907060000_add_amazon"
     ],
     "session": [
       "20240514122825_initial_version"

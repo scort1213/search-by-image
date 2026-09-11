@@ -30,7 +30,25 @@ const optionKeys = [
 const searchUrl = browser.runtime.getURL('/src/search/index.html') + '?id={id}';
 
 const engines = {
-  bing: {
+amazon: {image: {target: 'https://www.amazon.com/shopthelook', isExec: true}},
+patternbank: {image: {target: 'https://patternbank.com/', isExec: true}},
+sameenergy: {image: {target: 'https://same.energy/', isExec: true}},
+spoonflower: {
+    image: {
+      target: 'https://www.spoonflower.com/en/shop-by-image',
+      isExec: true
+    }
+  },
+huaban: {image: {target: 'https://huaban.com/discovery', isExec: true}},
+cosmos: {image: {target: 'https://www.cosmos.so/', isExec: true}},
+savee: {image: {target: 'https://savee.com/search/', isExec: true}},
+zcool: {
+    image: {target: 'https://www.zcool.com.cn/search/image', isExec: true}
+  },
+bigbigwork: {
+    image: {target: 'https://www.bigbigwork.com/home', isExec: true}
+  },
+bing: {
     url: {
       target:
         'https://www.bing.com/images/search?q=imgurl:{imgUrl}&view=detailv2' +
@@ -42,7 +60,7 @@ const engines = {
       isExec: true
     }
   },
-  yandex: {
+yandex: {
     url: {
       target: 'https://{host}/images/search?url={imgUrl}&rpt=imageview',
       isExec: true
@@ -52,231 +70,31 @@ const engines = {
       isExec: true
     }
   },
-  baidu: {
-    image: {
-      target: 'https://graph.baidu.com/pcpage/index?tpl_from=pc',
-      isExec: true
-    }
-  },
-  tineye: {
-    url: {target: 'https://www.tineye.com/search/?&url={imgUrl}'},
-    image: {
-      target: 'https://www.tineye.com/',
-      isExec: true
-    }
-  },
-  sogou: {
-    url: {target: 'https://pic.sogou.com/ris?query={imgUrl}&flag=1&drag=0'},
-    image: {
-      target: 'https://pic.sogou.com/',
-      isExec: true
-    }
-  },
-  whatanime: {
-    image: {
-      target: 'https://trace.moe/',
-      isExec: true
-    }
-  },
-  saucenao: {
-    url: {
-      target: 'https://saucenao.com/',
-      isExec: true
-    },
-    image: {
-      target: 'https://saucenao.com/',
-      isExec: true
-    }
-  },
-  iqdb: {
-    url: {target: 'https://iqdb.org/?url={imgUrl}'},
-    image: {
-      target: 'https://iqdb.org/',
-      isExec: true
-    }
-  },
-  ascii2d: {
-    url: {target: 'https://ascii2d.net/search/url/{imgUrl}'},
-    image: {
-      target: 'https://ascii2d.net/',
-      isExec: true
-    }
-  },
-  getty: {
-    image: {
-      target: 'https://www.gettyimages.com/',
-      isExec: true
-    }
-  },
-  istock: {
-    image: {
-      target: 'https://www.istockphoto.com/',
-      isExec: true
-    }
-  },
-  shutterstock: {
+shutterstock: {
     image: {
       target: 'https://www.shutterstock.com/images',
       isExec: true
     }
   },
-  adobestock: {
+adobestock: {
     image: {
       target: 'https://stock.adobe.com/',
       isExec: true
     }
   },
-  depositphotos: {
+depositphotos: {
     image: {
       target: 'https://depositphotos.com/search/',
       isExec: true
     }
   },
-  pinterest: {
+pinterest: {
     image: {
       target: searchUrl,
       isTaskId: true
     }
   },
-  qihoo: {
-    image: {
-      target: 'https://st.so.com/',
-      isExec: true
-    }
-  },
-  taobao: {
-    image: {
-      target: 'https://www.taobao.com/',
-      isExec: true
-    }
-  },
-  alibabaChina: {
-    image: {
-      target: 'https://www.1688.com/',
-      isExec: true
-    }
-  },
-  dreamstime: {
-    image: {
-      target: 'https://www.dreamstime.com/',
-      isExec: true
-    }
-  },
-  alamy: {
-    image: {
-      target: 'https://www.alamy.com/',
-      isExec: true
-    }
-  },
-  '123rf': {
-    image: {
-      target: 'https://www.123rf.com/',
-      isExec: true
-    }
-  },
-  esearch: {
-    image: {
-      target: 'https://euipo.europa.eu/eSearch/',
-      isExec: true
-    }
-  },
-  tmview: {
-    image: {
-      target: 'https://www.tmdn.org/tmview/#/tmview',
-      isExec: true
-    }
-  },
-  branddb: {
-    image: {
-      target: 'https://branddb.wipo.int/en/similarlogo',
-      isExec: true
-    }
-  },
-  madridMonitor: {
-    image: {
-      target: 'https://www3.wipo.int/madrid/monitor/en/',
-      isExec: true
-    }
-  },
-  auTrademark: {
-    image: {
-      target: 'https://search.ipaustralia.gov.au/trademarks/search/advanced',
-      isExec: true
-    }
-  },
-  auDesign: {
-    image: {
-      target: 'https://search.ipaustralia.gov.au/designs/search/advanced',
-      isExec: true
-    }
-  },
-  nzTrademark: {
-    image: {
-      target: 'https://app.iponz.govt.nz/app/TradeMarkCheck',
-      isExec: true
-    }
-  },
-  jpDesign: {
-    image: {
-      target: 'https://www.graphic-image.inpit.go.jp/',
-      isExec: true
-    }
-  },
-  pimeyes: {
-    image: {
-      target: 'https://pimeyes.com/en',
-      isExec: true
-    }
-  },
-  stocksy: {
-    image: {
-      target: 'https://www.stocksy.com/',
-      isExec: true
-    }
-  },
-  pond5: {
-    image: {
-      target: 'https://www.pond5.com/stock-images/',
-      isExec: true
-    }
-  },
-  pixta: {
-    image: {
-      target: 'https://www.pixtastock.com/',
-      isExec: true
-    }
-  },
-  ikea: {
-    image: {
-      target: 'https://www.ikea.com/',
-      isExec: true
-    }
-  },
-  repostSleuth: {
-    image: {
-      target: 'https://repostsleuth.com/search',
-      isExec: true
-    }
-  },
-  shein: {
-    image: {
-      target: 'https://m.shein.com/presearch',
-      isExec: true
-    }
-  },
-  lykdat: {
-    image: {
-      target: 'https://lykdat.com/',
-      isExec: true
-    }
-  },
-  wildberries: {
-    image: {
-      target: 'https://www.wildberries.ru/',
-      isExec: true
-    }
-  },
-  googleLens: {
+googleLens: {
     url: {
       target: 'https://lens.google.com/upload?url={imgUrl}',
       isExec: true
@@ -286,62 +104,13 @@ const engines = {
       isExec: true
     }
   },
-  lexica: {
-    image: {
-      target: 'https://lexica.art/',
-      isExec: true
-    }
-  },
-  kagi: {
-    url: {
-      target: 'https://kagi.com/images',
-      isExec: true
-    },
-    image: {
-      target: 'https://kagi.com/images',
-      isExec: true
-    }
-  },
-  freepik: {
+freepik: {
     image: {
       target: 'https://www.freepik.com/search',
       isExec: true
     }
   },
-  icons8: {
-    image: {
-      target: 'https://icons8.com/',
-      isExec: true
-    }
-  },
-  lenso: {
-    url: {
-      target: 'https://lenso.ai/en/search-by-url?url={imgUrl}&utm_source=sbi'
-    },
-    image: {
-      target: 'https://lenso.ai/en?utm_source=sbi',
-      isExec: true
-    }
-  },
-  googleImages: {
-    url: {
-      target:
-        'https://www.google.com/searchbyimage?sbisrc=cr_1_5_2&image_url={imgUrl}',
-      isExec: true
-    },
-
-    image: {
-      target: searchUrl,
-      isTaskId: true
-    }
-  },
-  unsplash: {
-    image: {
-      target: 'https://unsplash.com/',
-      isExec: true
-    }
-  },
-  vcg: {
+vcg: {
     image: {
       target: 'https://vcg.com/',
       isExec: true
@@ -655,6 +424,17 @@ const gifEngineSupport = [
 ];
 
 const maxImageUploadSize = {
+  // No documented site limit: leave validation to Amazon's native uploader.
+  amazon: {ui: Infinity},
+  patternbank: {ui: 5 * 1024 * 1024},
+  sameenergy: {ui: 5 * 1024 * 1024},
+  spoonflower: {ui: 10 * 1024 * 1024},
+  huaban: {ui: 10 * 1024 * 1024},
+  cosmos: {ui: 10 * 1024 * 1024},
+  savee: {ui: 10 * 1024 * 1024},
+  zcool: {ui: 10 * 1024 * 1024},
+
+  bigbigwork: {ui: 3 * 1024 * 1024},
   bing: {api: 600 * 1024, ui: 20 * 1024 * 1024},
   yandex: {api: 5 * 1024 * 1024, ui: Infinity},
   baidu: {ui: Infinity},

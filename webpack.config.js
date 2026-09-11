@@ -1,3 +1,5 @@
+import {selectedEngines as originalSelection} from './src/storage/revisions/local/20260907050000_keep_selected_engines.js';
+const selectedEngines = [...originalSelection, 'amazon'];
 import path from 'node:path';
 import {lstat, readdir} from 'node:fs/promises';
 
@@ -76,7 +78,7 @@ export default async function (env, argv) {
   ).filter(Boolean);
 
   const entries = Object.fromEntries(
-    engines.map(engine => [engine, `./src/engines/${engine}.js`])
+    engines.filter(engine => selectedEngines.includes(engine)).map(engine => [engine, `./src/engines/${engine}.js`])
   );
 
   if (enableContributions) {

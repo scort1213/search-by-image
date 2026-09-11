@@ -1,3 +1,15 @@
+# 图片搜索（自用设计参考版）
+
+当前交付：v7 / 8.5.5，2026-09-11 复核，18 个图片搜索来源，包含美国亚马逊。
+
+- [下载安装包](downloads/image-search-v7-20260911.zip?raw=true)
+- [安装方法、测试结果和已知问题](docs/release-20260911.md)
+- 从源码云端打包：Actions → 打包 Chrome 插件 → Run workflow，选择当前分支。
+
+基于 dessant/Search by Image 二次开发，保留原项目 GPL-3.0 许可证与作者署名。以下为原项目说明。
+
+---
+
 <p align="center"><img width="128" height="128" src="https://i.imgur.com/9JOpViL.png"></p>
 <h1 align="center">Search by Image</h1>
 
